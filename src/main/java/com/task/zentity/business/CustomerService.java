@@ -5,6 +5,7 @@ import com.task.zentity.domain.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.Optional;
 
 @Service
@@ -34,5 +35,9 @@ public class CustomerService {
             throw new Exception("The expiry date cannot be before date of issue");
         }
         return repository.save(customer);
+    }
+
+    public Collection<Customer> readAll(){
+        return repository.findAll();
     }
 }

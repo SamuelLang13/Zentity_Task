@@ -1,5 +1,6 @@
 package com.task.zentity.api.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.task.zentity.domain.Account;
 import com.task.zentity.domain.Sex;
 
@@ -13,9 +14,12 @@ public class CustomerDTO {
     private String surname;
     private Sex sex;
     private String nationality;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "d.M.yyyy")
     private LocalDate dateOfBirth;
     private Long cardNumber;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "d.M.yyyy")
     private LocalDate dateOfIssue;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "d.M.yyyy")
     private LocalDate dateOfExpiry;
     private Set<Account> accounts;
 

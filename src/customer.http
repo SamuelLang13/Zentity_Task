@@ -1,0 +1,14 @@
+###
+POST http://localhost:8081/customer
+Content-Type: application/json
+
+{
+  "name": "Samo",
+  "surname": "Lang",
+  "sex": "MALE",
+  "nationality": "SK",
+  "dateOfBirth": "1.9.2000",
+  "cardNumber": "1234L",
+  "dateOfIssue": "1.1.2009",
+  "dateOfExpiry": "2.2.2020"
+}

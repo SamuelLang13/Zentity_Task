@@ -119,4 +119,20 @@ public class Customer {
     public void setAccounts(Set<Account> accounts) {
         this.accounts = accounts;
     }
+
+    @Override
+    public String toString() {
+        return "Customer{" +
+                "customerID=" + customerID +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", sex=" + sex +
+                ", nationality='" + nationality + '\'' +
+                ", dateOfBirth=" + dateOfBirth +
+                ", cardNumber=" + cardNumber +
+                ", dateOfIssue=" + dateOfIssue +
+                ", dateOfExpiry=" + dateOfExpiry +
+                ", accounts=" + accounts +
+                '}';
+    }
 }
