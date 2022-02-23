@@ -8,7 +8,7 @@ import java.util.Set;
 
 public class CustomerDTO {
 
-    private Long accountID;
+    private Long customerID;
     private String name;
     private String surname;
     private Sex sex;
@@ -21,7 +21,7 @@ public class CustomerDTO {
 
     public CustomerDTO(Long accountID, String name, String surname, Sex sex, String nationality, LocalDate dateOfBirth,
                        Long cardNumber, LocalDate dateOfIssue, LocalDate dateOfExpiry, Set<Account> accounts) {
-        this.accountID = accountID;
+        this.customerID = accountID;
         this.name = name;
         this.surname = surname;
         this.sex = sex;
@@ -66,7 +66,7 @@ public class CustomerDTO {
     }
 
     public Long getAccountID() {
-        return accountID;
+        return customerID;
     }
 
     public String getName() {

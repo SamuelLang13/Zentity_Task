@@ -2,6 +2,9 @@ package com.task.zentity.domain;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -10,7 +13,7 @@ public class Customer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long accountID;
+    private Long customerID;
     private String name;
     private String surname;
     private Sex sex;
@@ -20,7 +23,9 @@ public class Customer {
     private LocalDate dateOfIssue;
     private LocalDate dateOfExpiry;
     //One customer might have more accounts, so relation 1:M
-    private Set<Account> accounts;
+    @OneToMany
+    @JoinColumn
+    private Set<Account> accounts=new HashSet<>();
 
     public Customer(String name, String surname, Sex sex, String nationality,
                     LocalDate dateOfBirth, Long cardNumber, LocalDate dateOfIssue,
@@ -33,13 +38,14 @@ public class Customer {
         this.cardNumber = cardNumber;
         this.dateOfIssue = dateOfIssue;
         this.dateOfExpiry = dateOfExpiry;
+//        this.accounts= Collections.EMPTY_SET;
     }
 
     public Customer() {
     }
 
     public Long getAccountID() {
-        return accountID;
+        return customerID;
     }
 
     public String getName() {
