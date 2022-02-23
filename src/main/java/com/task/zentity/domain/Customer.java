@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.util.Set;
 
 @Entity
+@Table
 public class Customer {
 
     @Id
@@ -19,8 +20,6 @@ public class Customer {
     private LocalDate dateOfIssue;
     private LocalDate dateOfExpiry;
     //One customer might have more accounts, so relation 1:M
-    @OneToMany
-    @JoinTable
     private Set<Account> accounts;
 
     public Customer(String name, String surname, Sex sex, String nationality,

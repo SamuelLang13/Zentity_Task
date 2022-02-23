@@ -8,6 +8,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
+@Table
 public class Account {
 
     @Id
@@ -17,9 +18,7 @@ public class Account {
     private String currency;
     private BigDecimal balance;
     //Accounts can belong to one customer, so relation M:1
-    @ManyToOne
-    @JoinTable
-    private Customer customer;
+    //private Customer customer;
 
     public Account(String IBAN, String currency, BigDecimal balance) {
         this.IBAN = IBAN;
