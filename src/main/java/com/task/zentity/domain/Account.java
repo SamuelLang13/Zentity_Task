@@ -1,11 +1,9 @@
 package com.task.zentity.domain;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.lang.reflect.Array;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -15,25 +13,18 @@ public class Account {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long accountID;
-    private String name;
-    private String surname;
-    private Sex sex;
-    private String nationality;
-    private LocalDate dateOfBirth;
-    private Long cardNumber;
-    private LocalDate dateOfIssue;
-    private LocalDate dateOfExpiry;
+    private String IBAN;
+    private String currency;
+    private BigDecimal balance;
+    //Accounts can belong to one customer, so relation M:1
+    @ManyToOne
+    @JoinTable
+    private Customer customer;
 
-    public Account(String name, String surname, Sex sex, String nationality, LocalDate dateOfBirth,
-                   Long cardNumber, LocalDate dateOfIssue, LocalDate dateOfExpiry) {
-        this.name = name;
-        this.surname = surname;
-        this.sex = sex;
-        this.nationality = nationality;
-        this.dateOfBirth = dateOfBirth;
-        this.cardNumber = cardNumber;
-        this.dateOfIssue = dateOfIssue;
-        this.dateOfExpiry = dateOfExpiry;
+    public Account(String IBAN, String currency, BigDecimal balance) {
+        this.IBAN = IBAN;
+        this.currency = currency;
+        this.balance = balance;
     }
 
     public Account() {
