@@ -1,5 +1,8 @@
 ###
-POST http://localhost:8081/customer
+GET localhost:8081/customer
+
+###
+POST localhost:8081/customer
 Content-Type: application/json
 
 {
@@ -7,8 +10,8 @@ Content-Type: application/json
   "surname": "Lang",
   "sex": "MALE",
   "nationality": "SK",
-  "dateOfBirth": "1.9.2000",
-  "cardNumber": "1234L",
-  "dateOfIssue": "1.1.2009",
-  "dateOfExpiry": "2.2.2020"
+  "cardNumber": "1234",
+  "dateOfExpiry":"20.12.2000",
+  "dateOfIssue": "1.1.2005",
+  "dateOfBirth": "1.1.2000"
 }

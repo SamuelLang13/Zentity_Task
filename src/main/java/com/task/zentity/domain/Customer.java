@@ -2,10 +2,7 @@ package com.task.zentity.domain;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table
@@ -118,6 +115,19 @@ public class Customer {
 
     public void setAccounts(Set<Account> accounts) {
         this.accounts = accounts;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Customer)) return false;
+        Customer customer = (Customer) o;
+        return Objects.equals(name, customer.name) && Objects.equals(surname, customer.surname) && sex == customer.sex && Objects.equals(nationality, customer.nationality) && Objects.equals(dateOfBirth, customer.dateOfBirth) && Objects.equals(cardNumber, customer.cardNumber) && Objects.equals(dateOfIssue, customer.dateOfIssue) && Objects.equals(dateOfExpiry, customer.dateOfExpiry);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, surname, sex, nationality, dateOfBirth, cardNumber, dateOfIssue, dateOfExpiry);
     }
 
     @Override

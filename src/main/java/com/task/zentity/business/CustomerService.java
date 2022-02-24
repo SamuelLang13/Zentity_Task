@@ -1,10 +1,13 @@
 package com.task.zentity.business;
 
+import com.task.zentity.api.dto.CustomerDTO;
+import com.task.zentity.api.exception.EntityStateException;
 import com.task.zentity.dao.CustomerRepository;
 import com.task.zentity.domain.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.Collection;
 import java.util.Optional;
 
@@ -24,16 +27,10 @@ public class CustomerService {
         return optionalCustomer.isPresent();
     }
 
-    public Customer create(Customer customer) throws Exception {
-        if(customer.getName().isEmpty() || customer.getSurname().isEmpty() || customer.getNationality().isEmpty()){
-            throw new Exception("The name, surname or nationality is empty");
-        }
-        if(!exists(customer)){
-            throw new Exception("The customer is already created!");
-        }
-        if(customer.getDateOfExpiry().isBefore(customer.getDateOfIssue())){
-            throw new Exception("The expiry date cannot be before date of issue");
-        }
+    @Transactional
+    public Customer create(Customer customer) throws EntityStateException {
+        if (exists(customer))
+            throw new EntityStateException(customer);
         return repository.save(customer);
     }
 

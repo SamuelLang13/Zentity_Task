@@ -1,6 +1,7 @@
 package com.task.zentity.api.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonView;
 import com.task.zentity.domain.Account;
 import com.task.zentity.domain.Sex;
 
@@ -14,12 +15,13 @@ public class CustomerDTO {
     private String surname;
     private Sex sex;
     private String nationality;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "d.M.yyyy")
+    //@JsonView()
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.yyyy")
     private LocalDate dateOfBirth;
     private Long cardNumber;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "d.M.yyyy")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.yyyy")
     private LocalDate dateOfIssue;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "d.M.yyyy")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.MM.yyyy")
     private LocalDate dateOfExpiry;
     private Set<Account> accounts;
 
@@ -103,5 +105,21 @@ public class CustomerDTO {
 
     public LocalDate getDateOfExpiry() {
         return dateOfExpiry;
+    }
+
+    @Override
+    public String toString() {
+        return "CustomerDTO{" +
+                "customerID=" + customerID +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", sex=" + sex +
+                ", nationality='" + nationality + '\'' +
+                ", dateOfBirth=" + dateOfBirth +
+                ", cardNumber=" + cardNumber +
+                ", dateOfIssue=" + dateOfIssue +
+                ", dateOfExpiry=" + dateOfExpiry +
+                ", accounts=" + accounts +
+                '}';
     }
 }

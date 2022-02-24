@@ -1,0 +1,12 @@
+###
+GET localhost:8081/account
+
+###
+POST http://localhost:8081/account
+Content-Type: application/json
+
+{
+  "IBAN": "12345tSAL",
+  "currency": "CZ",
+  "balance": "1234.5"
+}

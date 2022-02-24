@@ -14,20 +14,25 @@ import java.util.Collection;
 public class CustomerController {
 
 
-    final CustomerService customerService;
+    private final CustomerService service;
 
     @Autowired
     public CustomerController(CustomerService customerService) {
-        this.customerService = customerService;
+        this.service = customerService;
     }
 
     @GetMapping
     public Collection<CustomerDTO> get(){
-        return CustomerConverter.fromModels(customerService.readAll());
+        return CustomerConverter.fromModels(service.readAll());
     }
 
     @PostMapping
     public CustomerDTO create(@RequestBody CustomerDTO customerDTO) throws Exception {
-        return CustomerConverter.fromModel(customerService.create(CustomerConverter.toModel(customerDTO)));
+        return CustomerConverter.fromModel(service.create(CustomerConverter.toModel(customerDTO)));
+    }
+
+    @DeleteMapping("/{customerID}")
+    public void delete(@PathVariable Long customerID){
+
     }
 }
