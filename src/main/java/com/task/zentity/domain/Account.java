@@ -8,9 +8,7 @@ import java.lang.reflect.Array;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Objects;
+import java.util.*;
 
 @Entity
 @Table
@@ -26,6 +24,10 @@ public class Account {
     @ManyToOne
     @JoinColumn
     private Customer customer;
+    @ManyToMany
+    @JoinTable(name = "transfer")
+    public List<Transfer> transfers = new ArrayList<>();
+        
 
     public Account(String IBAN, String currency, BigDecimal balance) {
         this.IBAN = IBAN;

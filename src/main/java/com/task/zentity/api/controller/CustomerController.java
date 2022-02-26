@@ -27,7 +27,7 @@ public class CustomerController {
     }
 
     @PostMapping
-    public CustomerDTO create(@RequestBody CustomerDTO customerDTO) throws Exception {
+    public CustomerDTO create(@RequestBody CustomerDTO customerDTO){
         return CustomerConverter.fromModel(service.create(CustomerConverter.toModel(customerDTO)));
     }
 

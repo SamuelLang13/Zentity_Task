@@ -27,8 +27,19 @@ public class CustomerService {
         return optionalCustomer.isPresent();
     }
 
+
+
+    public  boolean customerValidation(Customer customer){
+        return !customer.getName().isEmpty() && !customer.getSurname().isEmpty() && !customer.getNationality().isEmpty();
+    }
+
     @Transactional
     public Customer create(Customer customer) throws EntityStateException {
+
+        if(!customerValidation(customer)){
+            throw new EntityStateException(customer);
+        }
+
         if (exists(customer))
             throw new EntityStateException(customer);
         return repository.save(customer);

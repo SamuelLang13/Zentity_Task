@@ -10,8 +10,8 @@ Content-Type: application/json
   "surname": "Lang",
   "sex": "MALE",
   "nationality": "SK",
+  "dateOfBirth": "2020-12-31",
   "cardNumber": "1234",
-  "dateOfExpiry":"20.12.2000",
-  "dateOfIssue": "1.1.2005",
-  "dateOfBirth": "1.1.2000"
+  "dateOfIssue": "2005-05-05",
+  "dateOfExpiry":"2007-05-04"
 }
