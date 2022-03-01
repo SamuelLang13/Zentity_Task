@@ -25,7 +25,6 @@ public class Account {
     //Accounts can belong to one customer, so relation M:1
     @ManyToOne
     @JoinColumn
-    //To avoid circular
     private Customer customer;
 //    @ManyToMany
 //    @JoinTable(name = "account_transfer")
@@ -76,5 +75,28 @@ public class Account {
 
     public Long getAccountID() {
         return accountID;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Account)) return false;
+        Account account = (Account) o;
+        return Objects.equals(accountID, account.accountID) && Objects.equals(IBAN, account.IBAN) && Objects.equals(currency, account.currency) && Objects.equals(balance, account.balance);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(accountID, IBAN, currency, balance);
+    }
+
+    @Override
+    public String toString() {
+        return "Account{" +
+                "accountID=" + accountID +
+                ", IBAN='" + IBAN + '\'' +
+                ", currency='" + currency + '\'' +
+                ", balance=" + balance +
+                '}';
     }
 }

@@ -68,16 +68,19 @@ public class AccountService {
         return optionalAccount.isPresent();
     }
 
+    public boolean validation(String IBAN, BigDecimal balance){
+        BigDecimal zero = new BigDecimal(0);
+        int result = balance.compareTo(zero);
+        return !IBAN.isEmpty() && isIBANValid(IBAN) && result >= 0;
+    }
+
     @Transactional
     public Account create(Account account){
-//        BigDecimal zero = new BigDecimal(0);
-//        int result = account.getBalance().compareTo(zero);
-//        if(account.getIBAN().isEmpty()|| !isIBANValid(account.getIBAN())){
-//            throw new EntityStateException(account);
-//        }
-//        if(result<0){
-//            throw new EntityStateException(account);
-//        }
+        BigDecimal zero = new BigDecimal(0);
+        int result = account.getBalance().compareTo(zero);
+        if(!validation(account.getIBAN(),account.getBalance())){
+            throw new EntityStateException(account);
+        }
         if(exists(account)){
             throw new EntityStateException(account);
         }
@@ -97,4 +100,25 @@ public class AccountService {
         account.get().setCustomer(customer);
     }
 
+    public void delete(Long accountID) {
+        if(!repository.existsById(accountID)){
+            throw new EntityNotFoundException("Account with this ID does not exist!");
+        }
+        repository.deleteById(accountID);
+    }
+
+    @Transactional
+    public Account update(Long accountID,Account account) {
+        if(!repository.existsById(accountID)){
+            throw new EntityNotFoundException("Account with this ID does not exist!");
+        }
+        if(!validation(account.getIBAN(),account.getBalance())){
+            throw new EntityStateException(account);
+        }
+        Account updatedAccount = repository.getById(accountID);
+        updatedAccount.setIBAN(account.getIBAN());
+        updatedAccount.setBalance(account.getBalance());
+        updatedAccount.setCurrency(account.getCurrency());
+        return updatedAccount;
+    }
 }

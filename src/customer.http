@@ -30,3 +30,6 @@ Content-Type: application/json
   "dateOfIssue": "2005-05-05",
   "dateOfExpiry":"2007-05-04"
 }
+
+###
+DELETE localhost:8081/customer/2

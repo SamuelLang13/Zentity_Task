@@ -79,6 +79,9 @@ public class CustomerService {
         if(!repository.existsById(customerID)){
             throw new EntityNotFoundException("Customer with this ID does not exist!");
         }
+        for (Account account : repository.getById(customerID).getAccounts()) {
+            account.setCustomer(null);
+        }
         repository.deleteById(customerID);
     }
 

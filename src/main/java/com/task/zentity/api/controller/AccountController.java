@@ -32,4 +32,14 @@ public class AccountController {
         return AccountConverter.fromModel(service.create(AccountConverter.toModel(accountDTO)));
     }
 
+    @PutMapping("/{accountID}")
+    public AccountDTO update(@PathVariable Long accountID, @RequestBody AccountDTO accountDTO){
+        return AccountConverter.fromModel(service.update(accountID,AccountConverter.toModel(accountDTO)));
+    }
+
+    @DeleteMapping("/{accountID}")
+    public void delete(@PathVariable Long accountID){
+        service.delete(accountID);
+    }
+
 }
