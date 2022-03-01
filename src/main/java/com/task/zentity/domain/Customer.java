@@ -1,5 +1,8 @@
 package com.task.zentity.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.*;
@@ -35,7 +38,7 @@ public class Customer {
         this.cardNumber = cardNumber;
         this.dateOfIssue = dateOfIssue;
         this.dateOfExpiry = dateOfExpiry;
-//        this.accounts= Collections.EMPTY_SET;
+        this.accounts= Collections.EMPTY_SET;
     }
 
     public Customer() {
@@ -113,8 +116,8 @@ public class Customer {
         return accounts;
     }
 
-    public void setAccounts(Set<Account> accounts) {
-        this.accounts = accounts;
+    public void setAccounts(Account account) {
+        this.accounts.add(account);
     }
 
     @Override

@@ -6,11 +6,26 @@ POST localhost:8081/customer
 Content-Type: application/json
 
 {
+  "name": "Samuel",
+  "surname": "Lang",
+  "sex": "MALE",
+  "nationality": "SK",
+  "dateOfBirth": "2000-09-20",
+  "cardNumber": "1234",
+  "dateOfIssue": "2001-05-05",
+  "dateOfExpiry":"2004-05-04"
+}
+
+###
+PUT localhost:8081/customer/3
+Content-Type: application/json
+
+{
   "name": "Samo",
   "surname": "Lang",
   "sex": "MALE",
   "nationality": "SK",
-  "dateOfBirth": "2020-12-31",
+  "dateOfBirth": "2000-09-20",
   "cardNumber": "1234",
   "dateOfIssue": "2005-05-05",
   "dateOfExpiry":"2007-05-04"

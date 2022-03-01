@@ -6,7 +6,10 @@ POST http://localhost:8081/account
 Content-Type: application/json
 
 {
-  "IBAN": "12345tSAL",
-  "currency": "CZ",
+  "IBAN": "NL35ABNA6289099205",
+  "currency": "NL",
   "balance": "1234.5"
 }
+
+###
+POST http://localhost:8081/addCustomer/1/2

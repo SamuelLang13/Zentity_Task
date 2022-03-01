@@ -1,6 +1,7 @@
 package com.task.zentity.api.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
@@ -14,7 +15,7 @@ import java.util.Set;
 
 public class CustomerDTO {
 
-    private Long customerID;
+    private final Long customerID;
     private String name;
     private String surname;
     private Sex sex;
@@ -23,6 +24,7 @@ public class CustomerDTO {
     private Long cardNumber;
     private LocalDate dateOfIssue;
     private LocalDate dateOfExpiry;
+    @JsonIgnoreProperties("customer")
     private Set<Account> accounts;
 
     public CustomerDTO(Long customerID, String name, String surname, Sex sex, String nationality,

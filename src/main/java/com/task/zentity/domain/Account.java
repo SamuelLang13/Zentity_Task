@@ -1,6 +1,8 @@
 package com.task.zentity.domain;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.mapping.Collection;
 
 import javax.persistence.*;
@@ -23,24 +25,21 @@ public class Account {
     //Accounts can belong to one customer, so relation M:1
     @ManyToOne
     @JoinColumn
+    //To avoid circular
     private Customer customer;
-    @ManyToMany
-    @JoinTable(name = "transfer")
-    public List<Transfer> transfers = new ArrayList<>();
-        
+//    @ManyToMany
+//    @JoinTable(name = "account_transfer")
+//    private List<Transfer> transfers = new ArrayList<>();
 
     public Account(String IBAN, String currency, BigDecimal balance) {
         this.IBAN = IBAN;
         this.currency = currency;
         this.balance = balance;
+        //this.transfers = Collections.EMPTY_LIST;
     }
 
-    public Account() {
+    public Account(){
 
-    }
-
-    public Long getAccountID() {
-        return accountID;
     }
 
     public String getIBAN() {
@@ -75,16 +74,7 @@ public class Account {
         this.customer = customer;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Account)) return false;
-        Account account = (Account) o;
-        return Objects.equals(IBAN, account.IBAN) && Objects.equals(currency, account.currency) && Objects.equals(balance, account.balance) && Objects.equals(customer, account.customer);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(IBAN, currency, balance, customer);
+    public Long getAccountID() {
+        return accountID;
     }
 }

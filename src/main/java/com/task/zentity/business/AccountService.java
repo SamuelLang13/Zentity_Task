@@ -3,9 +3,11 @@ package com.task.zentity.business;
 import com.task.zentity.api.exception.EntityStateException;
 import com.task.zentity.dao.AccountRepository;
 import com.task.zentity.domain.Account;
+import com.task.zentity.domain.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.util.Collection;
@@ -19,6 +21,14 @@ public class AccountService {
     @Autowired
     public AccountService(AccountRepository repository) {
         this.repository = repository;
+    }
+
+    public Account getAccountById(Long accountID) {
+        Optional<Account> account = repository.findById(accountID);
+        if(account.isEmpty()){
+            throw new EntityNotFoundException();
+        }
+        return account.get();
     }
 
     public boolean isIBANValid(String IBAN){
@@ -60,14 +70,14 @@ public class AccountService {
 
     @Transactional
     public Account create(Account account){
-        BigDecimal zero = new BigDecimal(0);
-        int result = account.getBalance().compareTo(zero);
-        if(account.getIBAN().isEmpty() || !isIBANValid(account.getIBAN())){
-            throw new EntityStateException(account);
-        }
-        if(result<0){
-            throw new EntityStateException(account);
-        }
+//        BigDecimal zero = new BigDecimal(0);
+//        int result = account.getBalance().compareTo(zero);
+//        if(account.getIBAN().isEmpty()|| !isIBANValid(account.getIBAN())){
+//            throw new EntityStateException(account);
+//        }
+//        if(result<0){
+//            throw new EntityStateException(account);
+//        }
         if(exists(account)){
             throw new EntityStateException(account);
         }
@@ -77,4 +87,14 @@ public class AccountService {
     public Collection<Account> readAll(){
         return repository.findAll();
     }
+
+    @Transactional
+    public void addCustomer(Long accountID, Customer customer) {
+        Optional<Account> account = repository.findById(accountID);
+        if(account.isEmpty()){
+            throw new EntityNotFoundException();
+        }
+        account.get().setCustomer(customer);
+    }
+
 }

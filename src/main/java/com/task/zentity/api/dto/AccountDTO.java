@@ -1,8 +1,10 @@
 package com.task.zentity.api.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.task.zentity.domain.Customer;
-
+import com.task.zentity.domain.Transfer;
 import java.math.BigDecimal;
+import java.util.List;
 
 public class AccountDTO {
 
@@ -10,6 +12,7 @@ public class AccountDTO {
     private String IBAN;
     private String currency;
     private BigDecimal balance;
+    @JsonIgnoreProperties("accounts")
     private Customer customer;
 
     public AccountDTO(Long accountID, String IBAN, String currency, BigDecimal balance, Customer customer) {
@@ -18,6 +21,18 @@ public class AccountDTO {
         this.currency = currency;
         this.balance = balance;
         this.customer = customer;
+    }
+
+    public AccountDTO(Long accountID, String IBAN, String currency, BigDecimal balance, Customer customer, List<Transfer> transfers) {
+        this.accountID = accountID;
+        this.IBAN = IBAN;
+        this.currency = currency;
+        this.balance = balance;
+        this.customer = customer;
+    }
+
+    public AccountDTO(){
+
     }
 
     public Long getAccountID() {
@@ -55,4 +70,5 @@ public class AccountDTO {
     public void setCustomer(Customer customer) {
         this.customer = customer;
     }
+
 }

@@ -31,8 +31,13 @@ public class CustomerController {
         return CustomerConverter.fromModel(service.create(CustomerConverter.toModel(customerDTO)));
     }
 
+    @PutMapping("{customerID}")
+    public CustomerDTO update(@RequestBody CustomerDTO customerDTO, @PathVariable Long customerID){
+        return CustomerConverter.fromModel(service.update(customerID,CustomerConverter.toModel(customerDTO)));
+    }
+
     @DeleteMapping("/{customerID}")
     public void delete(@PathVariable Long customerID){
-
+        service.deleteByID(customerID);
     }
 }
