@@ -1,6 +1,7 @@
 package com.task.zentity.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.boot.model.source.spi.Sortable;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -12,7 +13,7 @@ import java.util.Objects;
 
 @Entity
 @Table
-public class Transfer {
+public class Transfer implements Comparable<Transfer> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -22,21 +23,22 @@ public class Transfer {
     private String debtorIBAN;
     private String creditorIBAN;
     private String message;
-//    @ManyToMany
-//    @JoinTable(name = "account",
-//                joinColumns = @JoinColumn(name = "accountid"),
-//                inverseJoinColumns = @JoinColumn(name = "transferid"))
-//    @JsonIgnoreProperties("transfers")
-//    public List<Account> accounts = new ArrayList<>();
+    @ManyToOne
+    @JoinColumn
+    private Account debtor;
+    @ManyToOne
+    @JoinColumn
+    private Account creditor;
 
     public Transfer(LocalDate date, BigDecimal amount, String debtorIBAN, String creditorIBAN,
-                    String message) {
+                    String message, Account debtor, Account creditor) {
         this.date = date;
         this.amount = amount;
         this.debtorIBAN = debtorIBAN;
         this.creditorIBAN = creditorIBAN;
         this.message = message;
-        //this.accounts = Collections.EMPTY_LIST;
+        this.debtor = debtor;
+        this.creditor = creditor;
     }
 
     public Transfer(){
@@ -87,24 +89,38 @@ public class Transfer {
         message = message;
     }
 
-//    public List<Account> getAccounts() {
-//        return accounts;
-//    }
-//
-//    public void setAccounts(List<Account> accounts) {
-//        this.accounts = accounts;
-//    }
-//
-//    @Override
-//    public boolean equals(Object o) {
-//        if (this == o) return true;
-//        if (!(o instanceof Transfer)) return false;
-//        Transfer transfer = (Transfer) o;
-//        return Objects.equals(date, transfer.date) && Objects.equals(amount, transfer.amount) && Objects.equals(debtorIBAN, transfer.debtorIBAN) && Objects.equals(creditorIBAN, transfer.creditorIBAN) && Objects.equals(message, transfer.message) && Objects.equals(accounts, transfer.accounts);
-//    }
-//
-//    @Override
-//    public int hashCode() {
-//        return Objects.hash(date, amount, debtorIBAN, creditorIBAN, message, accounts);
-//    }
+    public Account getDebtor() {
+        return debtor;
+    }
+
+    public void setDebtor(Account debtor) {
+        this.debtor = debtor;
+    }
+
+    public Account getCreditor() {
+        return creditor;
+    }
+
+    public void setCreditor(Account creditor) {
+        this.creditor = creditor;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Transfer)) return false;
+        Transfer transfer = (Transfer) o;
+        return Objects.equals(date, transfer.date) && Objects.equals(amount, transfer.amount) && Objects.equals(debtorIBAN, transfer.debtorIBAN) && Objects.equals(creditorIBAN, transfer.creditorIBAN) && Objects.equals(message, transfer.message);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(date, amount, debtorIBAN, creditorIBAN, message);
+    }
+
+
+    @Override
+    public int compareTo(Transfer o) {
+        return date.compareTo(o.getDate());
+    }
 }

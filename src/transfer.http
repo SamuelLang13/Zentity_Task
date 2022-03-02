@@ -1,0 +1,11 @@
+###
+POST http://localhost:8081/transfer
+Content-Type: application/json
+
+{
+  "date": "2022-03-02",
+  "amount": "50",
+  "debtorIBAN": "PL39109024029221197278987884",
+  "creditorIBAN": "NL05ABNA6383931601",
+  "message": "money transfer"
+}

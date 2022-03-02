@@ -14,6 +14,8 @@ public class AccountDTO {
     private BigDecimal balance;
     @JsonIgnoreProperties("accounts")
     private Customer customer;
+    @JsonIgnoreProperties("accounts")
+    private List<Transfer> transfers;
 
     public AccountDTO(Long accountID, String IBAN, String currency, BigDecimal balance, Customer customer) {
         this.accountID = accountID;
@@ -29,6 +31,7 @@ public class AccountDTO {
         this.currency = currency;
         this.balance = balance;
         this.customer = customer;
+        this.transfers = transfers;
     }
 
     public AccountDTO(){
@@ -71,4 +74,11 @@ public class AccountDTO {
         this.customer = customer;
     }
 
+    public List<Transfer> getTransfers() {
+        return transfers;
+    }
+
+    public void setTransfers(List<Transfer> transfers) {
+        this.transfers = transfers;
+    }
 }

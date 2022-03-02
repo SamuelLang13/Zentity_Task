@@ -1,5 +1,5 @@
 ###
-GET localhost:8081/account
+GET localhost:8081/account/1
 
 ###
 POST http://localhost:8081/account
@@ -12,13 +12,13 @@ Content-Type: application/json
 }
 
 ###
-PUT http://localhost:8081/account/1
+POST http://localhost:8081/account
 Content-Type: application/json
 
 {
   "iban": "PL39109024029221197278987884",
-  "currency": "CZ",
-  "balance": "1234.5"
+  "currency": "PL",
+  "balance": "20000.5"
 }
 
 ###

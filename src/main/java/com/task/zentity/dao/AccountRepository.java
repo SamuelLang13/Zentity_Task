@@ -4,10 +4,9 @@ import com.task.zentity.domain.Account;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
-
 @Repository
 public interface AccountRepository extends JpaRepository<Account, Long> {
 
-    public Optional<Account> findByIBAN(String IBAN);
+    public Account findByIBAN(String IBAN);
+    public boolean existsByIBAN(String IBAN);
 }

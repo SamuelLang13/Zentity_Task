@@ -27,6 +27,11 @@ public class AccountController {
         return AccountConverter.fromModels(service.readAll());
     }
 
+    @GetMapping("/{accountID}")
+    public AccountDTO viewSummary(@PathVariable Long accountID){
+        return AccountConverter.fromModel(service.getAccountById(accountID));
+    }
+
     @PostMapping
     public AccountDTO create(@RequestBody AccountDTO accountDTO){
         return AccountConverter.fromModel(service.create(AccountConverter.toModel(accountDTO)));

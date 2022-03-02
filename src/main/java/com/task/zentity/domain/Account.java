@@ -26,15 +26,15 @@ public class Account {
     @ManyToOne
     @JoinColumn
     private Customer customer;
-//    @ManyToMany
-//    @JoinTable(name = "account_transfer")
-//    private List<Transfer> transfers = new ArrayList<>();
+    @OneToMany
+    @JoinColumn
+    private List<Transfer> transfers = new ArrayList<>();
 
     public Account(String IBAN, String currency, BigDecimal balance) {
         this.IBAN = IBAN;
         this.currency = currency;
         this.balance = balance;
-        //this.transfers = Collections.EMPTY_LIST;
+        this.transfers = Collections.EMPTY_LIST;
     }
 
     public Account(){
@@ -75,6 +75,22 @@ public class Account {
 
     public Long getAccountID() {
         return accountID;
+    }
+
+    public List<Transfer> getTransfers() {
+        return transfers;
+    }
+
+    public void setTransfers(Transfer transfer) {
+        this.transfers.add(transfer);
+    }
+
+    public void addBalance(BigDecimal amount){
+        balance = balance.add(amount);
+    }
+
+    public void subBalance(BigDecimal amount){
+        balance = balance.subtract(amount);
     }
 
     @Override

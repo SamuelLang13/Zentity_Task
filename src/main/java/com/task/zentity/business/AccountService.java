@@ -23,6 +23,14 @@ public class AccountService {
         this.repository = repository;
     }
 
+    public Account getAccountByIBAN(String IBAN){
+        Optional<Account> account = Optional.ofNullable(repository.findByIBAN(IBAN));
+        if(account.isEmpty()){
+            throw new EntityNotFoundException();
+        }
+        return account.get();
+    }
+
     public Account getAccountById(Long accountID) {
         Optional<Account> account = repository.findById(accountID);
         if(account.isEmpty()){
@@ -64,7 +72,7 @@ public class AccountService {
     }
 
     public boolean exists(Account account){
-        Optional<Account> optionalAccount = repository.findByIBAN(account.getIBAN());
+        Optional<Account> optionalAccount = Optional.ofNullable(repository.findByIBAN(account.getIBAN()));
         return optionalAccount.isPresent();
     }
 
