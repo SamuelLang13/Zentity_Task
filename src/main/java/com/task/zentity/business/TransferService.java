@@ -124,9 +124,37 @@ public class TransferService {
         return transfers;
     }
 
+    /**
+     * Method for filtering transfers with requested amount
+     * @param amount
+     * @return transfers with requested amount
+     */
     public Collection<Transfer> readByAmount(BigDecimal amount) {
         List<Transfer> transfers = repository.findAll();
         Collections.sort(transfers);
         return transfers.stream().filter(transfer -> transfer.getAmount().compareTo(amount)==0).collect(Collectors.toList());
     }
+
+    /**
+     * Method for filtering transfers with requested IBAN (either Creditor or Debtor)
+     * @param iban
+     * @return transfers with requested IBAN
+     */
+    public Collection<Transfer> readByIBAN(String iban) {
+        List<Transfer> transfers = repository.findAll();
+        Collections.sort(transfers);
+        return transfers.stream().filter(transfer -> transfer.getCreditorIBAN().compareTo(iban)==0 || transfer.getDebtorIBAN().compareTo(iban)==0).collect(Collectors.toList());
+    }
+
+    /**
+     * Method for filtering transfers with requested Message
+     * @param message
+     * @return transfers with requested message
+     */
+    public Collection<Transfer> readByMessage(String message) {
+        List<Transfer> transfers = repository.findAll();
+        Collections.sort(transfers);
+        return transfers.stream().filter(transfer -> transfer.getMessage().compareTo(message)==0).collect(Collectors.toList());
+    }
+
 }

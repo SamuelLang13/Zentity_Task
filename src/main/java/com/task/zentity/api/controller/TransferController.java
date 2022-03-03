@@ -34,9 +34,19 @@ public class TransferController {
         return TransferConverter.fromModels(service.readAll());
     }
 
-    @GetMapping("/search/{amount}")
+    @GetMapping("/search/amount/{amount}")
     public Collection<TransferDTO> getTransactionsByAmount(@PathVariable BigDecimal amount){
         return TransferConverter.fromModels(service.readByAmount(amount));
+    }
+
+    @GetMapping("/search/IBAN/{IBAN}")
+    public Collection<TransferDTO> getTransactionsByAmount(@PathVariable String IBAN){
+        return TransferConverter.fromModels(service.readByIBAN(IBAN));
+    }
+
+    @GetMapping("/search/message/{Message}")
+    public Collection<TransferDTO> getTransactionsByMessage(@PathVariable String Message){
+        return TransferConverter.fromModels(service.readByMessage(Message));
     }
 
 }

@@ -23,7 +23,34 @@ Content-Type: application/json
 }
 
 ###
+POST http://localhost:8081/transfer
+Content-Type: application/json
+
+{
+  "date": "2024-03-02",
+  "amount": "350",
+  "debtorIBAN": "NL05ABNA6383931601",
+  "creditorIBAN": "PL39109024029221197278987884",
+  "message": "Transfer"
+}
+
+###
+POST http://localhost:8081/transfer
+Content-Type: application/json
+
+{
+  "date": "2024-03-02",
+  "amount": "350",
+  "debtorIBAN": "NL05ABNA6383931601",
+  "creditorIBAN": "SK9833455779659742266621",
+  "message": "Transfer"
+}
+
+###
 GET http://localhost:8081/transfer/history
 
 ###
-GET http://localhost:8081/transfer/search/250
+GET http://localhost:8081/transfer/search/amount/250
+
+###
+GET http://localhost:8081/transfer/search/IBAN/NL05ABNA6383931601
