@@ -9,3 +9,21 @@ Content-Type: application/json
   "creditorIBAN": "NL05ABNA6383931601",
   "message": "money transfer"
 }
+
+###
+POST http://localhost:8081/transfer
+Content-Type: application/json
+
+{
+  "date": "2024-03-02",
+  "amount": "250",
+  "debtorIBAN": "NL05ABNA6383931601",
+  "creditorIBAN": "PL39109024029221197278987884",
+  "message": "money transfer"
+}
+
+###
+GET http://localhost:8081/transfer/history
+
+###
+GET http://localhost:8081/transfer/search/250

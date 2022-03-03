@@ -8,6 +8,7 @@ import com.task.zentity.domain.Transfer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.Collection;
 
 @RestController
@@ -31,6 +32,11 @@ public class TransferController {
     @GetMapping("/history")
     public Collection<TransferDTO> getTransactions(){
         return TransferConverter.fromModels(service.readAll());
+    }
+
+    @GetMapping("/search/{amount}")
+    public Collection<TransferDTO> getTransactionsByAmount(@PathVariable BigDecimal amount){
+        return TransferConverter.fromModels(service.readByAmount(amount));
     }
 
 }

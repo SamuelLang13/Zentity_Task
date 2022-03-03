@@ -23,6 +23,11 @@ public class AccountService {
         this.repository = repository;
     }
 
+    /**
+     * Auxiliary method for getting account with requested IBAN
+     * @param IBAN
+     * @return account if the account with the IBAN exists
+     */
     public Account getAccountByIBAN(String IBAN){
         Optional<Account> account = Optional.ofNullable(repository.findByIBAN(IBAN));
         if(account.isEmpty()){
@@ -31,6 +36,11 @@ public class AccountService {
         return account.get();
     }
 
+    /**
+     * Auxiliary method for getting account with requested ID
+     * @param accountID
+     * @return account if the account with the ID exists
+     */
     public Account getAccountById(Long accountID) {
         Optional<Account> account = repository.findById(accountID);
         if(account.isEmpty()){
@@ -39,6 +49,11 @@ public class AccountService {
         return account.get();
     }
 
+    /**
+     * Method to verify IBAN
+     * @param IBAN
+     * @return true if IBAN is valid, false if the IBAN is invalid
+     */
     public boolean isIBANValid(String IBAN){
 
         int IBAN_MIN_SIZE = 15;
@@ -71,17 +86,33 @@ public class AccountService {
         return (total % IBAN_MODULUS) == 1;
     }
 
+    /**
+     * Method to find if account with this IBAN, already exist
+     * @param account
+     * @return true if the account exists, false if not
+     */
     public boolean exists(Account account){
         Optional<Account> optionalAccount = Optional.ofNullable(repository.findByIBAN(account.getIBAN()));
         return optionalAccount.isPresent();
     }
 
+    /**
+     * Auxiliary method for validation
+     * @param IBAN
+     * @param balance
+     * @return true if the data are correct, false if not
+     */
     public boolean validation(String IBAN, BigDecimal balance){
         BigDecimal zero = new BigDecimal(0);
         int result = balance.compareTo(zero);
         return !IBAN.isEmpty() && isIBANValid(IBAN) && result >= 0;
     }
 
+    /**
+     * Method for creating account and validating account's data
+     * @param account
+     * @return ACCOUNT
+     */
     @Transactional
     public Account create(Account account){
         BigDecimal zero = new BigDecimal(0);
@@ -95,10 +126,19 @@ public class AccountService {
         return repository.save(account);
     }
 
+    /**
+     * Method for getting all accounts
+     * @return Collection of account
+     */
     public Collection<Account> readAll(){
         return repository.findAll();
     }
 
+    /**
+     * Method for adding customer, we have to check if the account with this ID exists
+     * @param accountID
+     * @param customer
+     */
     @Transactional
     public void addCustomer(Long accountID, Customer customer) {
         Optional<Account> account = repository.findById(accountID);
@@ -108,6 +148,10 @@ public class AccountService {
         account.get().setCustomer(customer);
     }
 
+    /**
+     * Method for deleting, we have to check if the account with this ID exists
+     * @param accountID
+     */
     public void delete(Long accountID) {
         if(!repository.existsById(accountID)){
             throw new EntityNotFoundException("Account with this ID does not exist!");
@@ -115,6 +159,12 @@ public class AccountService {
         repository.deleteById(accountID);
     }
 
+    /**
+     * Method for update, we have to check if the account with this ID exists
+     * @param accountID
+     * @param account
+     * @return updated Account
+     */
     @Transactional
     public Account update(Long accountID,Account account) {
         if(!repository.existsById(accountID)){

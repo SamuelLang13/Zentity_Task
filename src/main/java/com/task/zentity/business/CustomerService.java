@@ -23,12 +23,22 @@ public class CustomerService {
         this.repository = repository;
     }
 
+    /**
+     * Method for checking if the customer exists
+     * @param customer
+     * @return true if exists, false if not
+     */
     public boolean exists(Customer customer){
         Optional<Customer> optionalCustomer = repository.
                 findCustomerByNameAndSurnameAndDateOfBirth(customer.getName(), customer.getSurname(),customer.getDateOfBirth());
         return optionalCustomer.isPresent();
     }
 
+    /**
+     * Method for getting customer with certain ID
+     * @param customerID
+     * @return Customer
+     */
     public Customer getCustomerById(Long customerID){
         Optional<Customer> customer = repository.findById(customerID);
         if(customer.isEmpty()){
@@ -37,6 +47,11 @@ public class CustomerService {
         return customer.get();
     }
 
+    /**
+     * Method for validating customer
+     * @param customer
+     * @return false if one of the customer data is invalid, true if everything is valid
+     */
     public  boolean customerValidation(Customer customer){
         return !customer.getName().trim().isEmpty() && !customer.getSurname().trim().isEmpty() && !customer.getNationality().trim().isEmpty();
     }
@@ -46,7 +61,7 @@ public class CustomerService {
      * we have to check if the customer data are correct
      * if yes then we save it into repository
      * @param customer
-     * @return
+     * @return Customer
      * @throws EntityStateException
      */
     @Transactional
@@ -66,6 +81,10 @@ public class CustomerService {
         return repository.save(customer);
     }
 
+    /**
+     * Method for getting every customer
+     * @return Collection of customers
+     */
     public Collection<Customer> readAll(){
         return repository.findAll();
     }
@@ -85,6 +104,12 @@ public class CustomerService {
         repository.deleteById(customerID);
     }
 
+    /**
+     * Method for updating customer
+     * @param customerID
+     * @param customer
+     * @return updated customer
+     */
     @Transactional
     public Customer update(Long customerID, Customer customer) {
         if(!repository.existsById(customerID)){
@@ -106,6 +131,11 @@ public class CustomerService {
     }
 
 
+    /**
+     * Method for updating customer
+     * @param customerID
+     * @param account
+     */
     @Transactional
     public void addAccount(Long customerID, Account account) {
         Optional<Customer> customer  = repository.findById(customerID);
