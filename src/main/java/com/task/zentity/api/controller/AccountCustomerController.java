@@ -3,13 +3,10 @@ package com.task.zentity.api.controller;
 import com.task.zentity.business.AccountService;
 import com.task.zentity.business.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/addCustomer")
+@RequestMapping()
 public class AccountCustomerController {
 
     private final AccountService accountService;
@@ -21,10 +18,15 @@ public class AccountCustomerController {
         this.customerService = customerService;
     }
 
-    @PostMapping("{accountID}/{customerID}")
+    @PostMapping("/addCustomer/{accountID}/{customerID}")
     public void addCustomer(@PathVariable Long accountID, @PathVariable Long customerID){
         accountService.addCustomer(accountID, customerService.getCustomerById(customerID));
         customerService.addAccount(customerID, accountService.getAccountById(accountID));
+    }
+    @DeleteMapping("/deleteCustomer/{accountID}/{customerID}")
+    public void deleteCustomer(@PathVariable Long accountID, @PathVariable Long customerID){
+        accountService.deleteCustomer(accountID, customerService.getCustomerById(customerID));
+        customerService.deleteAccount(customerID, accountService.getAccountById(accountID));
     }
 
 }

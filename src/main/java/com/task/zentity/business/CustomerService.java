@@ -11,7 +11,9 @@ import org.springframework.stereotype.Service;
 import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.util.Collection;
+import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class CustomerService {
@@ -42,7 +44,7 @@ public class CustomerService {
     public Customer getCustomerById(Long customerID){
         Optional<Customer> customer = repository.findById(customerID);
         if(customer.isEmpty()){
-            throw new EntityNotFoundException();
+            throw new EntityNotFoundException("Customer with this ID does not exist");
         }
         return customer.get();
     }
@@ -143,5 +145,20 @@ public class CustomerService {
             throw new EntityNotFoundException();
         }
         customer.get().setAccounts(account);
+    }
+
+    /**
+     * Method for deleting account
+     * @param customerID
+     * @param accountById
+     */
+    @Transactional
+    public void deleteAccount(Long customerID, Account accountById) {
+        if(!repository.existsById(customerID)){
+            throw new EntityNotFoundException("Customer with this ID does not exist!");
+        }
+        Customer customer = repository.getById(customerID);
+        Set<Account> accounts = customer.getAccounts();
+        accounts.remove(accountById);
     }
 }

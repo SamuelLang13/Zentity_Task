@@ -1,5 +1,6 @@
 package com.task.zentity.api.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.task.zentity.domain.Customer;
 import com.task.zentity.domain.Transfer;
@@ -81,4 +82,6 @@ public class AccountDTO {
     public void setTransfers(List<Transfer> transfers) {
         this.transfers = transfers;
     }
+
+
 }

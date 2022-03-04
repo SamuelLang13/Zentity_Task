@@ -2,6 +2,7 @@ package com.task.zentity.business;
 
 import com.task.zentity.api.exception.EntityStateException;
 import com.task.zentity.dao.AccountRepository;
+import com.task.zentity.dao.CustomerRepository;
 import com.task.zentity.domain.Account;
 import com.task.zentity.domain.Customer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.util.Collection;
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -19,7 +21,8 @@ public class AccountService extends ValidationService {
     private final AccountRepository repository;
 
     @Autowired
-    public AccountService(AccountRepository repository) {
+    public AccountService(AccountRepository repository, CustomerRepository customerRepository,
+                          CustomerService customerService) {
         this.repository = repository;
     }
 
@@ -78,8 +81,6 @@ public class AccountService extends ValidationService {
      */
     @Transactional
     public Account create(Account account){
-        BigDecimal zero = new BigDecimal(0);
-        int result = account.getBalance().compareTo(zero);
         if(!validation(account.getIBAN(),account.getBalance())){
             throw new EntityStateException(account);
         }
@@ -141,5 +142,23 @@ public class AccountService extends ValidationService {
         updatedAccount.setBalance(account.getBalance());
         updatedAccount.setCurrency(account.getCurrency());
         return updatedAccount;
+    }
+
+    /**
+     * Method for deleting customer
+     * @param accountID
+     * @param customerById
+     */
+    @Transactional
+    public void deleteCustomer(Long accountID, Customer customerById) {
+        if(!repository.existsById(accountID)){
+            throw new EntityNotFoundException("Account with this ID does not exist!");
+        }
+        Account account = repository.getById(accountID);
+        Customer customer = account.getCustomer();
+        if(!Objects.equals(customer.getCustomerID(), customerById.getCustomerID())){
+            throw new EntityNotFoundException("Account does not have customer with this ID");
+        }
+        account.setCustomer(null);
     }
 }

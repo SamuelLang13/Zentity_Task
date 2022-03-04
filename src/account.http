@@ -1,5 +1,5 @@
 ###
-GET localhost:8081/account/1
+GET localhost:8081/account/2
 
 ###
 POST http://localhost:8081/account
@@ -32,7 +32,10 @@ Content-Type: application/json
 }
 
 ###
-POST http://localhost:8081/addCustomer/3/2
+POST http://localhost:8081/addCustomer/2/1
+
+###
+DELETE http://localhost:8081/deleteCustomer/2/1
 
 ###
 DELETE localhost:8081/account/1

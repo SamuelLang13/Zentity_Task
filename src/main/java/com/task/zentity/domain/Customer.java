@@ -44,7 +44,7 @@ public class Customer {
     public Customer() {
     }
 
-    public Long getAccountID() {
+    public Long getCustomerID() {
         return customerID;
     }
 
@@ -145,7 +145,6 @@ public class Customer {
                 ", cardNumber=" + cardNumber +
                 ", dateOfIssue=" + dateOfIssue +
                 ", dateOfExpiry=" + dateOfExpiry +
-                ", accounts=" + accounts +
                 '}';
     }
 }

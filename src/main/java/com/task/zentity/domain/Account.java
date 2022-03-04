@@ -12,6 +12,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 
+
 @Entity
 @Table
 public class Account {
@@ -37,6 +38,9 @@ public class Account {
         this.transfers = Collections.EMPTY_LIST;
     }
 
+    /**
+     * Default constructor 
+     */
     public Account(){
 
     }
@@ -92,6 +96,7 @@ public class Account {
     public void subBalance(BigDecimal amount){
         balance = balance.subtract(amount);
     }
+
 
     @Override
     public boolean equals(Object o) {
